@@ -1,0 +1,27 @@
+User: 
+	name:
+	email:
+	password,
+	admin
+Project:
+	name
+	type
+	project manager
+	sprint
+Task:
+	name
+	description
+	type: Story|Bug|Epic
+Board:
+	project
+	sprint
+	columns
+BoardColumn:
+	name
+	board
+Sprint
+	name
+	project
+	board
+	date start
+	date end
