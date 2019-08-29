@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddDateStartDateEndToSprintsTable extends Migration
+class AddBoardIdToSprintsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,8 @@ class AddDateStartDateEndToSprintsTable extends Migration
     public function up()
     {
         Schema::table('sprints', function (Blueprint $table) {
-            $table->date('begin');
-            $table->date('end');
+            $table->unsignedBigInteger('board_id')->nullable()->default(null);
+            $table->foreign('board_id')->references('id')->on('boards');
         });
     }
 
@@ -27,8 +27,7 @@ class AddDateStartDateEndToSprintsTable extends Migration
     public function down()
     {
         Schema::table('sprints', function (Blueprint $table) {
-            $table->removeColumn('begin');
-            $table->removeColumn('end');
+            $table->removeColumn('board_id');
         });
     }
 }

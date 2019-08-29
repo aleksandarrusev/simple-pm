@@ -3,11 +3,13 @@ User:
 	email:
 	password,
 	admin
+	projects
 Project:
 	name
 	type
 	project manager
 	sprint
+	users
 Task:
 	name
 	description
