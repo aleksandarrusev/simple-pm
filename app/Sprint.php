@@ -27,6 +27,11 @@ class Sprint extends Model
         return $this->belongsTo(Project::class);
     }
 
+    public function boardColumns()
+    {
+        return $this->hasManyThrough(BoardColumn::class, Board::class);
+    }
+
     public function board()
     {
         return $this->belongsTo(Board::class);

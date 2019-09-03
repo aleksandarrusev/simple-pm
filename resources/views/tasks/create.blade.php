@@ -10,7 +10,7 @@
                     <div class="card-body">
 
                         <form class="form"
-                              action="{{  $project->isKanban() ? route("tasks.store", array($project)) : route("sprints.tasks.store", array($project,$sprint)) }}"
+                              action="{{ route("tasks.store", array($project,$sprint)) }}"
                               method="post">
                             @csrf
 
@@ -26,12 +26,50 @@
                                 </select>
                             </div>
                             <div class="form-group">
+                                <label for="assignee">Assignee</label>
+                                <select class="custom-select" name="assignee" id="assignee">
+                                    <option selected value="">Select assignee</option>
+                                    @foreach($users as $user)
+                                        <option value="{{  $user->id}}">{{ $user->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            @if(!$project->isKanban())
+                                @if($columns)
+                                    <div class="form-group">
+                                        <label for="status">Status</label>
+                                        <select class="custom-select" name="status" id="status">
+                                            <option selected value="">Select column</option>
+                                            @foreach($columns as $column)
+                                                <option value="{{  $column->id}}">{{ $column->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                @endif
+                                <div class="form-group">
+                                    <label for="sprint">Sprint</label>
+                                    <select class="custom-select" name="sprint" id="sprint">
+                                        <option selected value="">Select sprint</option>
+                                        @foreach($project->sprints as $projectSprint)
+                                            <option value="{{ $projectSprint->id}}"
+                                                @if($sprint)
+                                                    {{ $projectSprint->id === $sprint->id ? 'selected' : null }}
+                                                @endif
+                                            >
+                                                {{ $projectSprint->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @endif
+                            <div class="form-group">
                                 <label for="story-point">Story point</label>
                                 <input type="text" class="form-control" id="story-point" name="story-point">
                             </div>
                             <div class="form-group">
-                                <label for="description">Story point</label>
-                                <textarea type="text" class="form-control" id="description" name="description">
+                                <label for="description">Description</label>
+                                <textarea rows="10" type="text" class="form-control" id="description"
+                                          name="description">
                                 </textarea>
                             </div>
 

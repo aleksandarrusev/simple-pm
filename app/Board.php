@@ -8,15 +8,6 @@ class Board extends Model
 {
     protected $guarded = [];
 
-    protected static function boot()
-    {
-        parent::boot();
-        static::created(function (Board $model) {
-            $boardColumn = new BoardColumn();
-            $model->createDefaultColumns();
-        });
-    }
-
     public function boardColumns()
     {
         return $this->hasMany(BoardColumn::class);
@@ -37,14 +28,17 @@ class Board extends Model
             array(
                 'name' => 'Todo',
                 'board_id' => $this->id,
+                'order' => 1
             ),
             array(
                 'name' => 'In Progress',
                 'board_id' => $this->id,
+                'order' => 2
             ),
             array(
                 'name' => 'Done',
                 'board_id' => $this->id,
+                'order' => 3
             )
         ]);
     }
